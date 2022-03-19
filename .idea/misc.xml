@@ -5,6 +5,21 @@
       <map>
         <entry key="..\:/Users/S545014/AndroidStudioProjects/PricePalAndroidApp/app/src/main/res/layout/login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/S545522/AndroidStudioProjects/PricePalAndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/activity_barcode_scanner.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/activity_product_details.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/fragment_barcode.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/fragment_items.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/fragment_stores.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/login.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/product_item_view.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/signup.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/store_item_view.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/layout/store_products_activity.xml" value="0.1" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.15267175572519084" />
+        <entry key="..\:/Users/S545710/Documents/GitHub/PricePalAndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>

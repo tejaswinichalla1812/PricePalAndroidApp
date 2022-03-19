@@ -11,11 +11,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.app.pricepal.databinding.FragmentStoresBinding;
-import com.app.pricepal.models.stores_model;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+import  com.app.pricepal.models.stores_model;
 public class StoresFragment extends Fragment {
 
     private FragmentStoresBinding binding;

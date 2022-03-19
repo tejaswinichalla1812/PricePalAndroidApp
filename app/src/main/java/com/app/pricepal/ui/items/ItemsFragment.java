@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.app.pricepal.databinding.FragmentItemsBinding;
 import com.app.pricepal.models.items_model;
+
 import java.util.ArrayList;
 import java.util.List;
 

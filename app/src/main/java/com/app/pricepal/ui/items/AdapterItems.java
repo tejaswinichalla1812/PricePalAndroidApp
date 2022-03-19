@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.app.pricepal.R;
 import com.app.pricepal.models.items_model;
+
 import java.util.List;
 
 public class AdapterItems extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
