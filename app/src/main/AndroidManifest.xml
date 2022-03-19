@@ -12,8 +12,15 @@
 
 
         <activity
+            android:name=".ui.scan.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.stores.StoreProductsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.scan.BarcodeScannerActivity"
+            android:exported="false" />
+
 
         <activity
             android:name=".main.Login"

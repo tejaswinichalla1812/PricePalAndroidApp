@@ -17,5 +17,12 @@
         android:label="@string/title_products"
         tools:layout="@layout/fragment_items" />
 
+    <fragment
+        android:id="@+id/navigation_scan"
+        android:name="com.app.pricepal.ui.scan.BarcodeScannerFragment"
+        android:label="@string/title_scan"
+        tools:layout="@layout/fragment_barcode" />
+
+
 
 </navigation>
