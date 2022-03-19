@@ -20,6 +20,9 @@
         <activity
             android:name=".ui.scan.BarcodeScannerActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.compare.PriceCompareActivity"
+            android:exported="false" />
 
 
         <activity

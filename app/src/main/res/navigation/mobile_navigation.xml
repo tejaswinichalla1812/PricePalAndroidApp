@@ -22,7 +22,10 @@
         android:name="com.app.pricepal.ui.scan.BarcodeScannerFragment"
         android:label="@string/title_scan"
         tools:layout="@layout/fragment_barcode" />
-
-
-
+   
+    <fragment
+        android:id="@+id/navigation_compare"
+        android:name="com.app.pricepal.ui.compare.PriceCompareFragment"
+        android:label="@string/title_compare"
+        tools:layout="@layout/fragment_compare" />
 </navigation>
