@@ -25,6 +25,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:padding="5dp"
+            android:scaleType="fitXY"
             android:layout_gravity="center"
             android:src="@drawable/storeicon" />
 
@@ -58,4 +59,4 @@
                 android:textStyle="normal" />
         </LinearLayout>
     </LinearLayout>
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
