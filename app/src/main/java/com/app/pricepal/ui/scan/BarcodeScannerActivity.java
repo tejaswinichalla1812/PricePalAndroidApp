@@ -1,8 +1,5 @@
 package com.app.pricepal.ui.scan;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,9 +9,11 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import com.app.pricepal.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -48,19 +47,15 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
         btnAction = findViewById(R.id.btnAction);
-        btnAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (intentData.length() > 0) {
-                    if (isData)
-                        startActivity(new Intent(getApplicationContext(), ProductDetailsActivity.class).putExtra("barcode", intentData));
-                }
+        btnAction.setOnClickListener(v -> {
+            if (intentData.length() > 0) {
+                if (isData)
+                    startActivity(new Intent(getApplicationContext(), ProductDetailsActivity.class).putExtra("barcode", intentData));
             }
         });
     }
 
     private void initialiseDetectorsAndSources() {
-//        Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
@@ -99,7 +94,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-         //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
 
             @Override
