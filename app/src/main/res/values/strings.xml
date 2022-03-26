@@ -101,6 +101,9 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="search_products_and_compare_prices">search products and compare prices</string>
+    <string name="hello_user">Hello, User</string>
+    <string name="logout">logout</string>
+    <string name="profile">profile</string>
     <string-array name="items_cat">
         <item>Item 1</item>
         <item>Item 2</item>
