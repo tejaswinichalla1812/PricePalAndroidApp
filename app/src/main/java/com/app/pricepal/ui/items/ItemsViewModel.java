@@ -8,7 +8,7 @@ public class ItemsViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
     public ItemsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is items fragment");
+        mText.setValue("No products found!");
     }
     public LiveData<String> getText() {
         return mText;

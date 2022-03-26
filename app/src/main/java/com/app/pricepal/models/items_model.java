@@ -1,6 +1,8 @@
 package com.app.pricepal.models;
 
-public class items_model {
+import java.io.Serializable;
+
+public class items_model implements Serializable {
     private int id;
     private String itemName;
     private String itemQty;
@@ -93,4 +95,3 @@ public class items_model {
     }
 
 }
-

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.app.pricepal.R;
 import com.app.pricepal.models.items_model;
-
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class AdapterItems extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -45,6 +45,11 @@ public class AdapterItems extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolder.tvStoreName.setText(item.getStoreId()+"");
         viewHolder.tvItemQty.setText(item.getItemQty());
         viewHolder.tvItemPrice.setText("$ "+item.getItemPrice());
+        Picasso.get()
+                .load(item.getItemImg())
+                .placeholder(R.drawable.storeicon)
+                .error(R.drawable.storeicon)
+                .into(viewHolder.tvItemImg);
     }
 
     @Override
