@@ -1,20 +1,36 @@
 # PricePalAndroidApp
-Application Name: PricePal
+## Application Name: PricePal
 
-Logo:
+### Team Members
+[Tejaswini Challa](https://github.com/tejaswinichalla1812)<br>
+[Rohan Reddy Kondaveeti](https://github.com/rohan2453)
+[Sai Kiran Reddy Gaddam](https://github.com/iamsaikiran)
+[Sai Nikhil Vaidyapu](https://github.com/vaidyapusainikhil)
 
-Team Members: 
-Tejaswini Challa,
-Rohan Reddy Kondaveeti,
-Sai Kiran Reddy Gaddam,
-Sai Nikhil Vaidyapu.
+## Problem Statement
+This Android app is used to create a product list and compare prices of the same products among different stores. It also has a barcode scanner which can be used to identify and get the latest price of the product. The application also allows the user to search for a product by its name. All we have to do is to register and create an account. Following that, there are four sections displayed accordingly: Stores (used to find the stores in our area), Products (used to search for a product), Scan Barcode (used to scan the barcode of a particular product) and Compare Products (used to compare the prices of a product among different stores). Our application also features a Price Analyzer that allows you to compare the price of a certain product between two dates.
 
-Android Version: Android Studio Bumblebee | 2021.1.1 Patch 2
-Windows 10 10.0
 
-SDK Version:
+## Test Credentials
+User Name : pricepal.s22@gmail.com
+Password : Pricepal@123
 
-Screenshots:
+
+## Supported Devices
+minSdk 19<br>
+targetSdk 32<br>
+versionName "1.001"
+
+## Advantages
+- User-Friendly.
+- Convenient and time-efficient.
+- Compare the price of the product
+- By using Barcode, the app makes it easy to identify the product.
+- Product price analyzer.
+
+
+
+
 
 
 
