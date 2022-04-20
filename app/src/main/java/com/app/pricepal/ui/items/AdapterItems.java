@@ -2,6 +2,7 @@ package com.app.pricepal.ui.items;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.app.pricepal.R;
 import com.app.pricepal.models.items_model;
+import com.app.pricepal.ui.scan.ProductDetailsActivity;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+
 
 public class AdapterItems extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
@@ -50,6 +53,9 @@ public class AdapterItems extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .placeholder(R.drawable.storeicon)
                 .error(R.drawable.storeicon)
                 .into(viewHolder.tvItemImg);
+        viewHolder.rootView.setOnClickListener(view ->
+                mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class)
+                        .putExtra("product",item)));
     }
 
     @Override

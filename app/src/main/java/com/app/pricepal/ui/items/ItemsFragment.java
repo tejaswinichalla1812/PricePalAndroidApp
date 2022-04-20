@@ -1,9 +1,16 @@
 package com.app.pricepal.ui.items;
 
+import static android.content.ContentValues.TAG;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -35,6 +42,7 @@ public class ItemsFragment extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private EditText tvSearchProduct;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class ItemsFragment extends Fragment {
         binding = FragmentItemsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         textView = binding.textItems;
+        tvSearchProduct = binding.tvSearchProduct;
         recyclerView= binding.rvProductsList;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Products");
@@ -50,6 +59,24 @@ public class ItemsFragment extends Fragment {
         fetchProducts();
         updateUi();
 
+        tvSearchProduct.addTextChangedListener(new TextWatcher() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                Log.e(TAG, "onTextChanged: "+cs);
+                getFilter(cs);
+            }
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
         return root;
     }
 
@@ -119,7 +146,29 @@ public class ItemsFragment extends Fragment {
             }
         });
     }
+    private void getFilter(CharSequence ch) {
+        String charString = ch.toString();
+        if (charString.isEmpty()) {
+            filterItemsList = itemsList;
+        } else {
+            List<items_model> filteredList = new ArrayList<>();
+            for (items_model item : itemsList) {
+                if (item.getItemName().toLowerCase().contains(charString.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+            filterItemsList = filteredList;
+        }
+        adapterItems.filterList(filterItemsList);
+        if (filterItemsList.isEmpty()) {
+            textView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }else{
+            textView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
 
+    }
     private void updateUi(){
         if(itemsList.size() !=0 ) {
             textView.setVisibility(View.GONE);
