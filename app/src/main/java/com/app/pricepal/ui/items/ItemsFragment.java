@@ -66,20 +66,24 @@ public class ItemsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    int id = ds.child("id").getValue(Integer.class);
-                    String itemName = ds.child("itemName").getValue(String.class);
-                    String itemQty = ds.child("itemQty").getValue(String.class);
-                    double itemPrice = ds.child("itemPrice").getValue(double.class);
-                    String itemImg = ds.child("itemImg").getValue(String.class);
-                    int storeId = ds.child("storeId").getValue(int.class);
-                    String storeName = ds.child("storeName").getValue(String.class);
-                    boolean itemStatus = ds.child("itemStatus").getValue(boolean.class);
+                    try {
+                        int id = ds.child("id").getValue(Integer.class);
+                        String itemName = ds.child("itemName").getValue(String.class);
+                        String itemQty = ds.child("itemQty").getValue(String.class);
+                        double itemPrice = ds.child("itemPrice").getValue(double.class);
+                        String itemImg = ds.child("itemImg").getValue(String.class);
+                        int storeId = ds.child("storeId").getValue(int.class);
+                        String storeName = ds.child("storeName").getValue(String.class);
+                        boolean itemStatus = ds.child("itemStatus").getValue(boolean.class);
+                        itemsList.add(new items_model(
+                                id, itemName, itemQty,
+                                itemPrice, itemImg,
+                                storeId, storeName, itemStatus)
+                        );
 
-                    itemsList.add(new items_model(
-                            id,itemName,itemQty,
-                            itemPrice,itemImg,
-                            storeId,storeName,itemStatus)
-                    );
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
                 updateUi();
             }
@@ -88,7 +92,6 @@ public class ItemsFragment extends Fragment {
             }
         });
     }
-
     private void addStore(){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
