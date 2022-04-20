@@ -62,28 +62,30 @@ public class StoresFragment extends BaseFragment {
         super.onDestroyView();
         binding = null;
     }
-
     private void getStores()
     {
         showProgressDialog(getContext());
         storesList.clear();
-
         databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    int id = ds.child("id").getValue(Integer.class);
-                    String name = ds.child("storeName").getValue(String.class);
-                    double loc_lat = ds.child("storeGeoLocationLat").getValue(Double.class);
-                    double loc_lang = ds.child("storeGeoLocationLang").getValue(Double.class);
-                    String img = ds.child("storeImg").getValue(String.class);
-                    String address = ds.child("storeAddress").getValue(String.class);
-                    boolean status = ds.child("storeStatus").getValue(Boolean.class);
-                    storesList.add(new stores_model(
-                            id,name,address,
-                            loc_lang,loc_lat,
-                            img,status)
-                    );
+                    try {
+                        int id = ds.child("id").getValue(Integer.class);
+                        String name = ds.child("storeName").getValue(String.class);
+                        double loc_lat = ds.child("storeGeoLocationLat").getValue(Double.class);
+                        double loc_lang = ds.child("storeGeoLocationLang").getValue(Double.class);
+                        String img = ds.child("storeImg").getValue(String.class);
+                        String address = ds.child("storeAddress").getValue(String.class);
+                        boolean status = ds.child("storeStatus").getValue(Boolean.class);
+                        storesList.add(new stores_model(
+                                id, name, address,
+                                loc_lang, loc_lat,
+                                img, status)
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 updateUi();
             }

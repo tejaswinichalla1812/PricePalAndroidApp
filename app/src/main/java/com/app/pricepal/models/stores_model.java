@@ -8,6 +8,7 @@ public class stores_model {
     private double storeGeoLocationLat;
     private String storeImg;
     private boolean storeStatus;
+    private double price;
 
     public stores_model(int id, String storeName,String storeAddress, Double storeGeoLocationLang,
                         Double storeGeoLocationLat,String storeImg,boolean storeStatus) {
@@ -17,6 +18,19 @@ public class stores_model {
         this.storeGeoLocationLang = storeGeoLocationLang;
         this.storeGeoLocationLat=storeGeoLocationLat;
         this.storeImg=storeImg;
+        this.storeStatus=storeStatus;
+    }
+
+
+    public stores_model(int id, String storeName, String storeAddress, Double storeGeoLocationLang,
+                        Double storeGeoLocationLat, String storeImg, double price, boolean storeStatus) {
+        this.id = id;
+        this.storeName = storeName;
+        this.storeAddress = storeAddress;
+        this.storeGeoLocationLang = storeGeoLocationLang;
+        this.storeGeoLocationLat=storeGeoLocationLat;
+        this.storeImg=storeImg;
+        this.price=price;
         this.storeStatus=storeStatus;
     }
 
@@ -74,6 +88,14 @@ public class stores_model {
 
     public void setStoreStatus(boolean storeStatus) {
         this.storeStatus = storeStatus;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
