@@ -24,6 +24,10 @@
         <activity
             android:name=".ui.compare.PriceCompareActivity"
             android:exported="false" />
+        <activity
+            android:name=".admin.ManagePrices"
+            android:exported="false" />
+
 
 
         <activity
