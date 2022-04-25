@@ -32,7 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +126,7 @@ public class StoreProductsActivity extends BaseActivity {
                                 boolean itemStatus = ds.child("itemStatus").getValue(boolean.class);
                                 itemsList.add(
                                         new items_model(
-                                                id, itemName, itemQty,
+                                                String.valueOf(id), itemName, itemQty,
                                                 itemPrice, itemImg,
                                                 storeId, storeName, itemStatus)
                                 );

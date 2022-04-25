@@ -1,28 +1,20 @@
 package com.app.pricepal.main;
-
-import static android.content.ContentValues.TAG;
-
+import static com.google.android.gms.vision.L.TAG;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
-import androidx.appcompat.app.AppCompatActivity;
 import com.app.pricepal.MainActivity;
 import com.app.pricepal.R;
 import com.app.pricepal.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.vision.L;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
@@ -54,7 +46,6 @@ public class Signup extends BaseActivity {
         lastName_et = findViewById(R.id.lname_et);
 
         FirebaseApp.initializeApp(this);
-
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         signup_btn.setOnClickListener(this::signUp);
@@ -62,7 +53,7 @@ public class Signup extends BaseActivity {
     }
 
     private void signUp(View view) {
-        Log.d(L.TAG, "signUp");
+        Log.d(TAG, "signUp");
         if (!validateForm()) {
             return;
         }
@@ -76,7 +67,7 @@ public class Signup extends BaseActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(L.TAG, "createUser:onComplete:" + task.isSuccessful());
+                        Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
                         hideProgressDialog();
 
                         if (task.isSuccessful()) {

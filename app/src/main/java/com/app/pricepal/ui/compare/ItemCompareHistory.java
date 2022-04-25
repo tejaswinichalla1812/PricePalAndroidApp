@@ -2,9 +2,7 @@ package com.app.pricepal.ui.compare;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.app.pricepal.models.history_items;
-
 import java.util.ArrayList;
 import java.util.List;
 

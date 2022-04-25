@@ -9,14 +9,14 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class prices_model {
     public int id;
     public int storeId;
-    public int itemId;
+    public String itemName;
     public String date;
     public double price;
 
-    public prices_model(int id, int storeId, int itemId, String date, double price) {
+    public prices_model(int id, int storeId, String itemName, String date, double price) {
         this.id = id;
         this.storeId = storeId;
-        this.itemId = itemId;
+        this.itemName = itemName;
         this.date = date;
         this.price = price;
     }
@@ -37,12 +37,12 @@ public class prices_model {
         this.storeId = storeId;
     }
 
-    public int getItemId() {
-        return itemId;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getDate() {

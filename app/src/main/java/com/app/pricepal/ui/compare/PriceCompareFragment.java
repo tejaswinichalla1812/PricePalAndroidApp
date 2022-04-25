@@ -4,32 +4,23 @@ import static com.app.pricepal.ui.compare.ItemCompareHistory.ITEM_COUNT;
 import static com.app.pricepal.ui.compare.ItemCompareHistory.ITEM_ID;
 import static com.app.pricepal.ui.compare.ItemCompareHistory.ITEM_NAME;
 import static com.app.pricepal.ui.compare.ItemCompareHistory.prefHistKey;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.app.pricepal.R;
 import com.app.pricepal.databinding.FragmentCompareBinding;
 import com.app.pricepal.models.history_items;
-import com.app.pricepal.ui.items.AdapterItems;
 import com.app.pricepal.ui.stores.StoresViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,7 +54,6 @@ public class PriceCompareFragment extends Fragment {
         sharedpreferences = getContext().getSharedPreferences(prefHistKey, Context.MODE_PRIVATE);
         listview_hist = binding.listHist;
         clearSearchHistory=binding.clearSearchHistory;
-//        list = binding.list;
         readHistorydata();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.select_dialog_item, list);

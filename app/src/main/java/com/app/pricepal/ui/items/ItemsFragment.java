@@ -1,7 +1,6 @@
 package com.app.pricepal.ui.items;
 
 import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,11 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ItemsFragment extends Fragment {
 
@@ -55,10 +50,8 @@ public class ItemsFragment extends Fragment {
         recyclerView= binding.rvProductsList;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Products");
-//        addStore();
         fetchProducts();
         updateUi();
-
         tvSearchProduct.addTextChangedListener(new TextWatcher() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -94,7 +87,7 @@ public class ItemsFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     try {
-                        int id = ds.child("id").getValue(Integer.class);
+                        String id = ds.child("id").getValue(String.class);
                         String itemName = ds.child("itemName").getValue(String.class);
                         String itemQty = ds.child("itemQty").getValue(String.class);
                         double itemPrice = ds.child("itemPrice").getValue(double.class);
@@ -119,33 +112,7 @@ public class ItemsFragment extends Fragment {
             }
         });
     }
-    private void addStore(){
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Date now = new Date();
-                int id = Integer.parseInt(new SimpleDateFormat("ddHHmmss",  Locale.US).format(now));
-                databaseReference.child(id+"").setValue(new items_model(
-                        id,
-                        "water bottle",
-                        "250ml",
-                        25.00,
-                        "https://www.kindpng.com/picc/m/39-393575_mineral-water-bottle-png-transparent-png.png",
-                        26003156,
-                        "Walmart",
-                        true));
-                // after adding this data we are showing toast message.
-                Toast.makeText(getContext(), "data added", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // if the data is not added or it is cancelled then
-                // we are displaying a failure toast message.
-                Toast.makeText(getContext(), "Fail to add data " + error, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
     private void getFilter(CharSequence ch) {
         String charString = ch.toString();
         if (charString.isEmpty()) {

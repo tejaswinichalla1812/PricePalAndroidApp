@@ -9,18 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.app.pricepal.R;
 import com.app.pricepal.models.stores_model;
-import com.app.pricepal.ui.stores.StoreProductsActivity;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class AdapterStores extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

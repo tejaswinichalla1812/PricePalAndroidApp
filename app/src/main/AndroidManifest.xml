@@ -10,8 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.PricePal">
-
-
         <activity
             android:name=".ui.scan.ProductDetailsActivity"
             android:exported="false" />
@@ -27,9 +25,6 @@
         <activity
             android:name=".admin.ManagePrices"
             android:exported="false" />
-
-
-
         <activity
             android:name=".main.Login"
             android:exported="true"
@@ -37,7 +32,6 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

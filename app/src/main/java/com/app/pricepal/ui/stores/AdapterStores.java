@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.pricepal.R;
 import com.app.pricepal.models.stores_model;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class AdapterStores extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -44,7 +43,13 @@ public class AdapterStores extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .putExtra("storeId", store.getId())
                 .putExtra("storeName", store.getStoreName())
         ));
-        Picasso.get()
+        viewHolder.tvStoreNav.setOnClickListener(view -> {
+                    String geoUri = "http://maps.google.com/maps?q=loc:" + store.getStoreGeoLocationLang()
+                            + "," + store.getStoreGeoLocationLat();
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+                    mContext.startActivity(mapIntent);
+        });
+            Picasso.get()
                 .load(store.getStoreImg())
                 .placeholder(R.drawable.storeicon)
                 .error(R.drawable.storeicon)

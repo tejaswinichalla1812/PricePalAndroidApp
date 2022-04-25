@@ -3,7 +3,7 @@ package com.app.pricepal.models;
 import java.io.Serializable;
 
 public class items_model implements Serializable {
-    private int id;
+    private String id;
     private String itemName;
     private String itemQty;
     private double itemPrice;
@@ -13,7 +13,7 @@ public class items_model implements Serializable {
     private double offerPrice;
     private boolean itemStatus;
 
-    public items_model(int id, String itemName, String itemQty, Double itemPrice,
+    public items_model(String id, String itemName, String itemQty, Double itemPrice,
                        String itemImg, int storeId, String storeName, boolean itemStatus) {
         this.id = id;
         this.itemName = itemName;
@@ -26,12 +26,20 @@ public class items_model implements Serializable {
         this.itemStatus=itemStatus;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setItemQty(String itemQty) {
+        this.itemQty = itemQty;
     }
 
     public String getItemName() {

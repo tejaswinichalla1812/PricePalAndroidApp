@@ -8,6 +8,10 @@
     android:layout_height="match_parent"
     android:padding="20dp"
     tools:context=".main.Login">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="50dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -202,4 +206,5 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

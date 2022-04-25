@@ -15,7 +15,7 @@
             android:id="@+id/tvDateFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Showing Results forrrr - 01/04/2022"
+            android:text="Showing Results for - 01/04/2022"
             android:textAlignment="center"
             android:drawableRight="@drawable/ic_baseline_date_range_24"
             android:padding="10dp"

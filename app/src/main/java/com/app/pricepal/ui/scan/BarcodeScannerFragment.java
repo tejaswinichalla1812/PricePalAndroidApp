@@ -56,7 +56,7 @@ public class BarcodeScannerFragment extends BaseFragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                            int id = ds.child("id").getValue(Integer.class);
+                            String id = ds.child("id").getValue(String.class);
                             if(String.valueOf(id).equals(intentData))
                             {
                                 check=true;

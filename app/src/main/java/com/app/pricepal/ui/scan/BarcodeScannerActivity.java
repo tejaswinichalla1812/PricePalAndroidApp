@@ -69,7 +69,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                int id = ds.child("id").getValue(Integer.class);
+                                String id = ds.child("id").getValue(String.class);
                                 if(intentData.equals(String.valueOf(id)))
                                 {
                                     isData = true;
@@ -147,8 +147,10 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (barcodes.valueAt(0).displayValue != null) {
+                                String regex = "^0+(?!$)";
                                 txtBarcodeValue.removeCallbacks(null);
                                 intentData = barcodes.valueAt(0).displayValue;
+                                intentData = intentData.replaceAll(regex, "");
                                 txtBarcodeValue.setText(intentData);
                             } else {
                                 intentData = barcodes.valueAt(0).displayValue;

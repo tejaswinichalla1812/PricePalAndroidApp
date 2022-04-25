@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +43,7 @@ public class PriceCompareActivity extends BaseActivity {
     private List<stores_model> storesList=new ArrayList<>();
     //    private ArrayList<Integer> storeIds=new ArrayList<>();
 //    private ArrayList<Double> storePrice=new ArrayList<>();
-    private int main_itemId=0;
+    private String main_itemId;
     private String main_itemName="";
 
     private FirebaseDatabase firebaseDatabase;
@@ -80,14 +79,14 @@ public class PriceCompareActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        mainDate=myCalendar.get(Calendar.DAY_OF_MONTH)+"/"+(myCalendar.get(Calendar.MONTH)+1)+"/"+myCalendar.get(Calendar.YEAR);
+        mainDate=String.format("%02d", (myCalendar.get(Calendar.DAY_OF_MONTH)))+"/"+String.format("%02d", (myCalendar.get(Calendar.MONTH)+1))+"/"+myCalendar.get(Calendar.YEAR);
         tvDateFilter.setText("Showing result for - "+mainDate);
         getProducts();
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            mainDate=dayOfMonth+"/"+(monthOfYear+1) +"/"+year;
+            mainDate=String.format("%02d", dayOfMonth)+"/"+String.format("%02d", (monthOfYear+1)) +"/"+year;
             tvDateFilter.setText("Showing results for - "+mainDate);
             getProducts();
         };
@@ -127,7 +126,7 @@ public class PriceCompareActivity extends BaseActivity {
                         String itemName_local = ds.child("itemName").getValue(String.class);
                         if(itemName_local.equals(itemName))
                         {
-                            int id = ds.child("id").getValue(Integer.class);
+                            String id = ds.child("id").getValue(String.class);
                             String itemQty = ds.child("itemQty").getValue(String.class);
                             String itemImg_st = ds.child("itemImg").getValue(String.class);
                             String itemName_st = ds.child("itemName").getValue(String.class);
@@ -142,7 +141,7 @@ public class PriceCompareActivity extends BaseActivity {
                                     .error(R.drawable.storeicon)
                                     .into(itemImg);
                             //prices --> read all stores along with prices
-                            if(main_itemId != 0) {
+                            if(main_itemId.isEmpty()) {
                                 databaseReference = firebaseDatabase.getReference("Prices");
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -173,7 +172,7 @@ public class PriceCompareActivity extends BaseActivity {
                                                                         String address = ds.child("storeAddress").getValue(String.class);
                                                                         boolean status = ds.child("storeStatus").getValue(Boolean.class);
                                                                         storesList.add(new stores_model(
-                                                                                id, name, address,
+                                                                                Integer.parseInt(id), name, address,
                                                                                 loc_lang, loc_lat,
                                                                                 img, main_price,status)
                                                                         );

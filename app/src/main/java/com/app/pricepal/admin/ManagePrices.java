@@ -3,6 +3,7 @@ package com.app.pricepal.admin;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,11 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.app.pricepal.R;
 import com.app.pricepal.main.BaseActivity;
-import com.app.pricepal.models.User;
 import com.app.pricepal.models.history_items;
 import com.app.pricepal.models.prices_model;
-import com.app.pricepal.models.stores_model;
-import com.app.pricepal.ui.compare.PriceCompareActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -26,10 +24,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ManagePrices extends BaseActivity {
     Button add_btn;
@@ -54,10 +53,8 @@ public class ManagePrices extends BaseActivity {
         sp_store=findViewById(R.id.sp_store);
         tvDateFilter=findViewById(R.id.tvDateFilter);
         tvReload=findViewById(R.id.tvReload);
-
         items_list=new ArrayList<>();
         stores_list=new ArrayList<>();
-
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         readData();
@@ -67,7 +64,8 @@ public class ManagePrices extends BaseActivity {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            stDate=dayOfMonth+"/"+(monthOfYear+1) +"/"+year;
+            monthOfYear++;
+            stDate=((dayOfMonth < 10) ? "0"+dayOfMonth : dayOfMonth)+"/"+ ((monthOfYear <10 ) ? "0"+monthOfYear :monthOfYear) +"/"+year;
             tvDateFilter.setText(stDate);
         };
         tvDateFilter.setOnClickListener(view -> {
@@ -79,9 +77,7 @@ public class ManagePrices extends BaseActivity {
         tvReload.setOnClickListener(view -> {
             Intent i = new Intent(this, ManagePrices.class);
             finish();
-//            overridePendingTransition(0, 0);
             startActivity(i);
-//            overridePendingTransition(0, 0);
         });
     }
 
@@ -94,8 +90,10 @@ public class ManagePrices extends BaseActivity {
         try {
             history_items sel_store = (history_items) sp_store.getSelectedItem();
             int sel_store_id = Integer.parseInt(sel_store.getId());
+            String sel_store_name = sel_store.getItemName();
             history_items sel_item = (history_items) sp_item.getSelectedItem();
             int sel_item_id=Integer.parseInt(sel_item.getId());
+            String sel_item_name=sel_item.getItemName();
             int id= (int) (System.currentTimeMillis()/1000);
             databaseReference = firebaseDatabase.getReference("Prices");
             databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
@@ -117,7 +115,7 @@ public class ManagePrices extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-                    writeNewPrice(view,id,sel_store_id,sel_item_id,stDate,st_amount);
+                    writeNewPrice(view,id,sel_item_id,sel_store_id,sel_item_name,stDate,st_amount);
 
                 }
                 @Override
@@ -154,12 +152,17 @@ public class ManagePrices extends BaseActivity {
     }
 
     // [START basic_write]
-    private void writeNewPrice(View view,int id,int storeId,int itemId,String date,double price) {
-        prices_model row = new prices_model(id, storeId,itemId,date,price);
+    private void writeNewPrice(View view,int id,int item_id,int storeId,String itemName,String date,double price) {
+        prices_model row = new prices_model(id, storeId,itemName,date,price);
         try {
             databaseReference = firebaseDatabase.getReference();
             databaseReference.child("Prices").child(String.valueOf(id)).setValue(row);
+            String today_date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
             Toast.makeText(this, "success!", Toast.LENGTH_SHORT).show();
+            if(date.equals(today_date)) {
+                databaseReference = firebaseDatabase.getReference("Products");
+                databaseReference.child(String.valueOf(item_id)).child("itemPrice").setValue(price);
+            }
             Intent i = new Intent(this, ManagePrices.class);
             finish();
             startActivity(i);
@@ -184,7 +187,10 @@ public class ManagePrices extends BaseActivity {
                     try {
                         int id = ds.child("id").getValue(Integer.class);
                         String itemName = ds.child("itemName").getValue(String.class);
-                        items_list.add(new history_items(String.valueOf(id),itemName));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            if(!items_list.stream().anyMatch(history_items -> history_items.getItemName().equals(itemName)))
+                                items_list.add(new history_items(String.valueOf(id),itemName));
+                        }
                     }catch(Exception e){
                         e.printStackTrace();
                     }

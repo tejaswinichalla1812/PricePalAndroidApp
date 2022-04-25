@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.app.pricepal.MainActivity;
 import com.app.pricepal.R;
+import com.app.pricepal.admin.ManagePrices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,11 +23,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 public class Login extends BaseActivity {
-    Button login_btn;
+    Button login_btn, admin_btn;
     TextView tvSignup;
     EditText email_et;
     EditText password_et;
-
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -49,11 +49,13 @@ public class Login extends BaseActivity {
         };
         email_et=findViewById(R.id.email_et);
         password_et=findViewById(R.id.password_et);
+        admin_btn=findViewById(R.id.admin_btn);
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         login_btn.setOnClickListener(view ->
                 signIn(email_et.getText().toString().trim(),password_et.getText().toString().trim(),view));
         tvSignup.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),Signup.class)));
+        admin_btn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ManagePrices.class)));
     }
     private void signIn(String email, String password,View view) {
         Log.d(TAG, "signIn:" + email);
