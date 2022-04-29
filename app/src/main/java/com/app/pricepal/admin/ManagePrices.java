@@ -1,5 +1,8 @@
 package com.app.pricepal.admin;
 
+import static java.lang.System.exit;
+
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,10 +16,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.app.pricepal.R;
 import com.app.pricepal.main.BaseActivity;
+import com.app.pricepal.models.User;
 import com.app.pricepal.models.history_items;
+import com.app.pricepal.models.items_model;
 import com.app.pricepal.models.prices_model;
+import com.app.pricepal.models.stores_model;
+import com.app.pricepal.ui.compare.PriceCompareActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -24,11 +32,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ManagePrices extends BaseActivity {
     Button add_btn;
@@ -53,13 +63,16 @@ public class ManagePrices extends BaseActivity {
         sp_store=findViewById(R.id.sp_store);
         tvDateFilter=findViewById(R.id.tvDateFilter);
         tvReload=findViewById(R.id.tvReload);
+
         items_list=new ArrayList<>();
         stores_list=new ArrayList<>();
+
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         readData();
         add_btn.setOnClickListener(view -> addPrice(view));
         tvDateFilter.setText(stDate);
+
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -68,6 +81,7 @@ public class ManagePrices extends BaseActivity {
             stDate=((dayOfMonth < 10) ? "0"+dayOfMonth : dayOfMonth)+"/"+ ((monthOfYear <10 ) ? "0"+monthOfYear :monthOfYear) +"/"+year;
             tvDateFilter.setText(stDate);
         };
+
         tvDateFilter.setOnClickListener(view -> {
             DatePickerDialog datePickerDialog=  new DatePickerDialog(this,R.style.DialogTheme, date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -80,6 +94,7 @@ public class ManagePrices extends BaseActivity {
             startActivity(i);
         });
     }
+    boolean flag=true;
 
     private void addPrice(View view) {
         if (!validateForm()) {
@@ -92,8 +107,9 @@ public class ManagePrices extends BaseActivity {
             int sel_store_id = Integer.parseInt(sel_store.getId());
             String sel_store_name = sel_store.getItemName();
             history_items sel_item = (history_items) sp_item.getSelectedItem();
-            int sel_item_id=Integer.parseInt(sel_item.getId());
+            String sel_item_id=sel_item.getId();
             String sel_item_name=sel_item.getItemName();
+
             int id= (int) (System.currentTimeMillis()/1000);
             databaseReference = firebaseDatabase.getReference("Prices");
             databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
@@ -102,21 +118,26 @@ public class ManagePrices extends BaseActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         try {
                             String date = ds.child("date").getValue(String.class);
-                            int itemId = ds.child("itemId").getValue(Integer.class);
                             int storeId = ds.child("storeId").getValue(Integer.class);
-                            if(sel_item_id == itemId && sel_store_id == storeId && date.equals(stDate))
+                            String itemName = ds.child("itemName").getValue(String.class);
+                            if(itemName.equals(sel_item_name) &&
+                                    sel_store_id == storeId  &&
+                                    date.equals(stDate)
+                            )
                             {
                                 hideProgressDialog();
                                 Snackbar.make(view, "price list already exist!", Snackbar.LENGTH_SHORT).show();
+                                flag=false;
                                 return;
                             }
                         }catch (Exception e)
                         {
                             e.printStackTrace();
+                            Toast.makeText(ManagePrices.this, "ex: "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                    writeNewPrice(view,id,sel_item_id,sel_store_id,sel_item_name,stDate,st_amount);
-
+                    if(flag)
+                        writeNewPrice(view,id,sel_item_id,sel_store_id,sel_item_name,stDate,st_amount);
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -152,20 +173,58 @@ public class ManagePrices extends BaseActivity {
     }
 
     // [START basic_write]
-    private void writeNewPrice(View view,int id,int item_id,int storeId,String itemName,String date,double price) {
+    private void writeNewPrice(View view,int id,String item_id,int storeId,String itemName,String date,double price) {
         prices_model row = new prices_model(id, storeId,itemName,date,price);
         try {
             databaseReference = firebaseDatabase.getReference();
-            databaseReference.child("Prices").child(String.valueOf(id)).setValue(row);
-            String today_date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-            Toast.makeText(this, "success!", Toast.LENGTH_SHORT).show();
-            if(date.equals(today_date)) {
-                databaseReference = firebaseDatabase.getReference("Products");
-                databaseReference.child(String.valueOf(item_id)).child("itemPrice").setValue(price);
-            }
-            Intent i = new Intent(this, ManagePrices.class);
-            finish();
-            startActivity(i);
+            databaseReference.child("Prices").child(String.valueOf(id)).setValue(row,new DatabaseReference.CompletionListener() {
+                public void onComplete(DatabaseError error, DatabaseReference ref) {
+                    String today_date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                    if(date.equals(today_date)) {
+                        try {
+                            databaseReference = firebaseDatabase.getReference("Products");
+                            databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        try
+                                        {
+                                            String id = ds.child("id").getValue(String.class);
+                                            if(Objects.equals(id, item_id))
+                                            {
+                                                String key=ds.getKey();
+                                                assert key != null;
+                                                databaseReference.child(key).child("itemPrice").setValue(price);
+                                                Toast.makeText(getApplicationContext(), "success!", Toast.LENGTH_SHORT).show();
+                                                Intent i = new Intent(getApplicationContext(), ManagePrices.class);
+                                                finish();
+                                                startActivity(i);
+                                            }
+                                        }catch (Exception e)
+                                        {
+                                            e.printStackTrace();
+                                            Toast.makeText(ManagePrices.this, "ex: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+                        }catch (Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }else
+                    {
+                        Toast.makeText(getApplicationContext(), "success!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), ManagePrices.class);
+                        finish();
+                        startActivity(i);
+                    }
+                }
+            });
+
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -177,23 +236,24 @@ public class ManagePrices extends BaseActivity {
     {
         stores_list.add(new history_items("0","- select store -"));
         items_list.add(new history_items("0","- select product -"));
-        showProgressDialog();
+
         //reading items
         databaseReference = firebaseDatabase.getReference("Products");
         databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                showProgressDialog();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     try {
-                        int id = ds.child("id").getValue(Integer.class);
+                        String id = ds.child("id").getValue(String.class);
                         String itemName = ds.child("itemName").getValue(String.class);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            if(!items_list.stream().anyMatch(history_items -> history_items.getItemName().equals(itemName)))
-                                items_list.add(new history_items(String.valueOf(id),itemName));
-                        }
+                        if(!items_list.stream().anyMatch(history_items -> history_items.getItemName().equals(itemName)))
+                            items_list.add(new history_items(String.valueOf(id),itemName));
                     }catch(Exception e){
                         e.printStackTrace();
                     }
+                    hideProgressDialog();
                 }
             }
             @Override
@@ -211,6 +271,7 @@ public class ManagePrices extends BaseActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                showProgressDialog();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     try {
                         int id = ds.child("id").getValue(int.class);
@@ -220,6 +281,7 @@ public class ManagePrices extends BaseActivity {
                         e.printStackTrace();
                     }
                 }
+                hideProgressDialog();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

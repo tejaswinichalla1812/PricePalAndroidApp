@@ -3,6 +3,7 @@ package com.app.pricepal.ui.compare;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,12 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.pricepal.R;
 import com.app.pricepal.main.BaseActivity;
 import com.app.pricepal.models.compare_price_model;
+import com.app.pricepal.models.history_items;
 import com.app.pricepal.models.stores_model;
 import com.app.pricepal.ui.compare.AdapterStores;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,8 +45,6 @@ public class PriceCompareActivity extends BaseActivity {
     private String itemName="";
     private List<compare_price_model> productsList=new ArrayList<>();
     private List<stores_model> storesList=new ArrayList<>();
-    //    private ArrayList<Integer> storeIds=new ArrayList<>();
-//    private ArrayList<Double> storePrice=new ArrayList<>();
     private String main_itemId;
     private String main_itemName="";
 
@@ -141,7 +143,7 @@ public class PriceCompareActivity extends BaseActivity {
                                     .error(R.drawable.storeicon)
                                     .into(itemImg);
                             //prices --> read all stores along with prices
-                            if(main_itemId.isEmpty()) {
+                            if(!main_itemId.isEmpty()) {
                                 databaseReference = firebaseDatabase.getReference("Prices");
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -152,6 +154,7 @@ public class PriceCompareActivity extends BaseActivity {
                                                 int main_store_id = ds.child("storeId").getValue(int.class);
 
                                                 String st_date = ds.child("date").getValue(String.class);
+
                                                 if(main_itemName.equals(itm_name) && mainDate.equals(st_date)) {
                                                     double main_price = ds.child("price").getValue(Double.class);
                                                     if(main_price < minPrice || minPrice == 0) minPrice = main_price;
@@ -159,23 +162,26 @@ public class PriceCompareActivity extends BaseActivity {
                                                     //fetch store details
                                                     databaseReference = firebaseDatabase.getReference("Stores");
                                                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @RequiresApi(api = Build.VERSION_CODES.N)
                                                         @Override
                                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                                                 try {
                                                                     int store_id = ds.child("id").getValue(int.class);
-                                                                    if(main_store_id == store_id) {
+                                                                    if(main_store_id == store_id)
+                                                                    {
                                                                         String name = ds.child("storeName").getValue(String.class);
                                                                         double loc_lat = ds.child("storeGeoLocationLat").getValue(Double.class);
                                                                         double loc_lang = ds.child("storeGeoLocationLang").getValue(Double.class);
                                                                         String img = ds.child("storeImg").getValue(String.class);
                                                                         String address = ds.child("storeAddress").getValue(String.class);
                                                                         boolean status = ds.child("storeStatus").getValue(Boolean.class);
-                                                                        storesList.add(new stores_model(
-                                                                                Integer.parseInt(id), name, address,
-                                                                                loc_lang, loc_lat,
-                                                                                img, main_price,status)
-                                                                        );
+                                                                        if(!storesList.stream().anyMatch(stores_model -> stores_model.getStoreName().equals(name)))
+                                                                            storesList.add(new stores_model(
+                                                                                    store_id, name, address,
+                                                                                    loc_lang, loc_lat,
+                                                                                    img, main_price,status)
+                                                                            );
                                                                     }
                                                                 } catch (Exception e) {
                                                                     e.printStackTrace();
@@ -183,7 +189,6 @@ public class PriceCompareActivity extends BaseActivity {
                                                             }
                                                             updateUi();
                                                         }
-
                                                         @Override
                                                         public void onCancelled(DatabaseError databaseError) {
                                                         }

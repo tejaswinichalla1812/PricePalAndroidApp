@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -54,6 +55,7 @@ public class PriceCompareFragment extends Fragment {
         sharedpreferences = getContext().getSharedPreferences(prefHistKey, Context.MODE_PRIVATE);
         listview_hist = binding.listHist;
         clearSearchHistory=binding.clearSearchHistory;
+        //  list = binding.list;
         readHistorydata();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.select_dialog_item, list);
@@ -79,22 +81,35 @@ public class PriceCompareFragment extends Fragment {
 
         clearSearchHistory.setOnClickListener(view -> {
             ItemCompareHistory itemCompareHistory= new ItemCompareHistory(getContext());
-                itemCompareHistory.clearHistory();
+            itemCompareHistory.clearHistory();
             readHistorydata();
         });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int i=0;
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     if (dsp != null) {
                         String name = dsp.child("itemName").getValue(String.class);
-                        list.add(name);
-                        actv.setThreshold(3);
-                        actv.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+                        try {
+                            if (!name.isEmpty()) {
+                                if (!list.contains(name)) {
+                                    list.add(name);
+                                    actv.setThreshold(3);
+                                    actv.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                            }catch(Exception ex){
+                                ex.printStackTrace();
+                                Toast.makeText(getContext(), "error :" + i, Toast.LENGTH_SHORT).show();
+                            }
+                            i++;
+
                     }
                 }
+
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>
                         (getContext(), android.R.layout.select_dialog_item, list);
                 AutoCompleteTextView actv = binding.searchText;
@@ -125,11 +140,11 @@ public class PriceCompareFragment extends Fragment {
                     list_hist);
             listview_hist.setAdapter(arr);
             listview_hist.setOnItemClickListener((adapterView, view, i, l) ->
-                    {
-                        startActivity(new Intent(getContext(), PriceCompareActivity.class)
-                                .putExtra("itemName", adapterView.getAdapter().getItem(i).toString())
-                        );
-                    });
+            {
+                startActivity(new Intent(getContext(), PriceCompareActivity.class)
+                        .putExtra("itemName", adapterView.getAdapter().getItem(i).toString())
+                );
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
