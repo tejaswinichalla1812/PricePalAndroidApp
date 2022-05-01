@@ -35,5 +35,22 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        login_btn_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = email_et_admin.getText().toString();
+                String userpassword = password_et_admin.getText().toString();
+                if(!email.equals("") && !userpassword.equals("")){
+                    signin(email,userpassword);
+                }
+                else{
+                    Toast.makeText(AdminActivity.this, "Please enter the Username and Password", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+
     }
 }
