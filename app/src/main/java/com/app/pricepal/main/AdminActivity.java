@@ -25,5 +25,15 @@ public class AdminActivity extends AppCompatActivity {
         password_et_admin = findViewById(R.id.password_et_admin);
 
         mAuth = FirebaseAuth.getInstance();
+
+	  loginpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent (AdminActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 }
