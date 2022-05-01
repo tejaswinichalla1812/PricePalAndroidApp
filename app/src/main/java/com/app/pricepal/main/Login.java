@@ -55,7 +55,7 @@ public class Login extends BaseActivity {
         login_btn.setOnClickListener(view ->
                 signIn(email_et.getText().toString().trim(),password_et.getText().toString().trim(),view));
         tvSignup.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),Signup.class)));
-        admin_btn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ManagePrices.class)));
+        admin_btn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), AdminActivity.class)));
     }
     private void signIn(String email, String password,View view) {
         Log.d(TAG, "signIn:" + email);
