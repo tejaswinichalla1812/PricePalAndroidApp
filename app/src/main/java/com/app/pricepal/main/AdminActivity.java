@@ -18,5 +18,12 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
+	  login_btn_admin= findViewById(R.id.login_btn_admin);
+        loginpage = findViewById(R.id.login_page);
+        email_et_admin = findViewById(R.id.email_et_admin);
+        password_et_admin = findViewById(R.id.password_et_admin);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 }
