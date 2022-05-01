@@ -15,20 +15,15 @@ The main goal of our application is to build an app for the users which should b
 
 
 ## Activities
-## Login Page: 
-Every consumer should register here to create an account before he/she begin using the application.
+Login Page: Every consumer should register here to create an account before he/she begin using the application.
 
-## Stores:
-It is used to find what are all the stores available nearby.
+Stores: It is used to find what are all the stores available nearby.
 
-## Products:
-To find a specific product, use the search product in Products section.
+Products: To find a specific product, use the search product in Products section.
 
-## Scan Barcode:
-Used to scan the barcode of a particular product.
+Scan Barcode: Used to scan the barcode of a particular product.
 
-## Price Comparison:
-To compare the prices of a product among different stores.
+Price Comparison: To compare the prices of a product among different stores.
 
 
 ## Test Credentials
