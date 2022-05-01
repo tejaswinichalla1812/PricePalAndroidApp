@@ -28,6 +28,12 @@ versionName "1.001"
 - By using Barcode, the app makes it easy to identify the product.
 - Product price analyzer.
 
+## API/Libraries used
+
+### Libraries
+- squareup picasso
+- gms google services
+- google firebase
 
 
 
