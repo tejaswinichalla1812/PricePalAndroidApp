@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.app.pricepal.MainActivity;
 import com.app.pricepal.R;
 import com.app.pricepal.admin.ManagePrices;
