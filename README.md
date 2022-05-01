@@ -31,26 +31,26 @@ Price Comparison: To compare the prices of a product among different stores.
 ## Application Usage Guidelines:
 Every consumer has to create an account first before using the application features. Then Login with credentials.
 
-Stores:
+#### Stores:
 - Stores will be displayed after the consumer has successfully logged in.
 - It displays all of the local stores. Following the selection of a specific store, the list of popular products from that store is displayed.
 - It also features a product search option where you may look for something specific.
 
-Products:
+#### Products:
 - If you go to the products area, you'll see a list of items along with their prices.
 - It also offers a search product feature that allows you to look for a certain item.
 - When you search for or click on a certain item, it displays product details such as Quantity, Price, Store, and Store Id.
 
-Scan Barcode:
+#### Scan Barcode:
 - A section for scanning a specific barcode can be found in the Scan Barcode section.
 - By selecting it, we can scan a product's bar code and obtain product information.
 - Additionally there's also a section where you may manually type in the barcode.
 
-Price Comparison:
+#### Price Comparison:
 - If you proceed to the last section of the page and click on the last Price Comparison section, it will show you the product as well as the stores where you can buy it.
 - If you select the Price Analyzer option, you will be able to compare the price of a product on a specified date.
 
-Admin:
+#### Admin:
 - The PricePal Admin page is used to add a product's price from a particular store on a specific date.
 
 
