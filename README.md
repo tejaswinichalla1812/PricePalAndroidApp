@@ -61,7 +61,7 @@ User Name : pricepal.s22@gmail.com<br>
 Password : Pricepal@123
 
 #### Admin login
-User Name : pricepalapp2gmail.com
+User Name : pricepalapp2gmail.com<br>
 Password : Pricepal@123
 
 
