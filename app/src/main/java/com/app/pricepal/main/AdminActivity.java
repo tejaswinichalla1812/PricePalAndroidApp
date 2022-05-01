@@ -50,6 +50,21 @@ public class AdminActivity extends AppCompatActivity {
         });
     }
 
+         public void signin(String email, String password){
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Intent i = new Intent (AdminActivity.this,ManagePrices.class);
+                    startActivity(i);
+                    Toast.makeText(AdminActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(AdminActivity.this, "Unsuccessful", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 
     }
