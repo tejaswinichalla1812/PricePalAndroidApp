@@ -13,6 +13,24 @@ People nowadays only spend their money on necessities. As a result, they can onl
 ## Introduction
 The main goal of our application is to build an app for the users which should be very interactive and it’s ease of use, to help a consumer in finding Stores that provide a specific Product in his area. It should also provide a Compare Products feature to compare the prices of a product among different stores.
 
+
+## Activities
+## Login Page: 
+Every consumer should register here to create an account before he/she begin using the application.
+
+## Stores:
+It is used to find what are all the stores available nearby.
+
+## Products:
+To find a specific product, use the search product in Products section.
+
+## Scan Barcode:
+Used to scan the barcode of a particular product.
+
+## Price Comparison:
+To compare the prices of a product among different stores.
+
+
 ## Test Credentials
 User Name : pricepal.s22@gmail.com
 Password : Pricepal@123
