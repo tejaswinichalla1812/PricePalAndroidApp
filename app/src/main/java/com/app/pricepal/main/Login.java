@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.app.pricepal.MainActivity;
 import com.app.pricepal.R;
-import com.app.pricepal.admin.ManagePrices;
+import com.app.pricepal.admin.AdminActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.app.pricepal.R;
 import com.app.pricepal.main.BaseActivity;
+import com.app.pricepal.main.Login;
 import com.app.pricepal.models.User;
 import com.app.pricepal.models.history_items;
 import com.app.pricepal.models.items_model;
@@ -41,7 +42,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class ManagePrices extends BaseActivity {
-    Button add_btn;
+    Button add_btn,admin_logout;
     TextView tvDateFilter,tvReload;
     final Calendar myCalendar = Calendar.getInstance();
     private String stDate="01/01/2022";
@@ -63,6 +64,7 @@ public class ManagePrices extends BaseActivity {
         sp_store=findViewById(R.id.sp_store);
         tvDateFilter=findViewById(R.id.tvDateFilter);
         tvReload=findViewById(R.id.tvReload);
+        admin_logout=findViewById(R.id.admin_logout);
 
         items_list=new ArrayList<>();
         stores_list=new ArrayList<>();
@@ -71,6 +73,12 @@ public class ManagePrices extends BaseActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         readData();
         add_btn.setOnClickListener(view -> addPrice(view));
+        admin_logout.setOnClickListener(view -> {
+            Intent intent=new Intent(this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+            this.finish();
+        });
         tvDateFilter.setText(stDate);
 
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {

@@ -41,13 +41,18 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(Objects.requireNonNull(mAuth.getUid())).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                User user=task.getResult().getValue(User.class);
-                assert user != null;
-                String uName=user.getFirstName()+" "+user.getLastName();
-                binding.tvWelcome.setText("Hello, "+uName);
-            }
-        });
+                    if (task.isSuccessful()) {
+                        User user = task.getResult().getValue(User.class);
+                        try {
+
+                            String uName = user.getFirstName() + " " + user.getLastName();
+                            binding.tvWelcome.setText("Hello, " + uName);
+                        } catch (Exception ex) {
+                            ex.getMessage();
+                            mAuth.signOut();
+                        }
+                    }
+                });
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_stores, R.id.navigation_items, R.id.navigation_scan, R.id.navigation_compare)
