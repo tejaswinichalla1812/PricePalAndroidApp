@@ -17,18 +17,23 @@ The main goal of our application is to build an app for the users which should b
 
 
 ## Activities
-Login Page: Every consumer should register here to create an account before he/she begin using the application.
+#### Login Page
+Every consumer should register here to create an account before he/she begin using the application.
 
-Stores: It is used to find what are all the stores available nearby.
+#### Stores
+It is used to find what are all the stores available nearby.
 
-Products: To find a specific product, use the search product in Products section.
+#### Products 
+To find a specific product, use the search product in Products section.
 
-Scan Barcode: Used to scan the barcode of a particular product.
+#### Scan Barcode 
+Used to scan the barcode of a particular product.
 
-Price Comparison: To compare the prices of a product among different stores.
+#### Price Comparison 
+To compare the prices of a product among different stores.
 
 
-## Application Usage Guidelines:
+## Application Usage Guidelines
 Every consumer has to create an account first before using the application features. Then Login with credentials.
 
 #### Stores:
@@ -47,7 +52,7 @@ Every consumer has to create an account first before using the application featu
 - Additionally there's also a section where you may manually type in the barcode.
 
 #### Price Comparison:
-- If you proceed to the last section of the page and click on the last Price Comparison section, it will show you the product as well as the stores where you can buy it.
+- If you proceed to the last section of the page and click on the last Price Comparison section, it will show you the product as well as the stores where you can buy   it.
 - If you select the Price Analyzer option, you will be able to compare the price of a product on a specified date.
 
 #### Admin:
@@ -61,7 +66,7 @@ User Name : pricepal.s22@gmail.com<br>
 Password : Pricepal@123
 
 #### Admin login
-User Name : pricepalapp2gmail.com<br>
+User Name : pricepalapp@gmail.com<br>
 Password : Pricepal@123
 
 
@@ -73,11 +78,13 @@ versionName "1.001"
 
 ## Advantages
 - User-Friendly.
-- Convenient and time-efficient.
+- Cost and time-efficient.
 - Compare the price of the product
-- By using Barcode, the app makes it easy to identify the product.
-- Product price analyzer.
+- By using Barcode, the app makes it easy to identify the product details.
 
+
+## Persistent Data
+We used Firebase Database to store and retrieve the data.
 
 ## API/Libraries used
 
@@ -93,6 +100,17 @@ versionName "1.001"
 - Backend : Firebase cloud messaging backend provided by google
 
 
+## Problems Faced
+- It only enables you to compare prices for available products in the stores.
+- Login or account related issues.
+- Sometimes, barcode scanner not working properly.
+- It's also possible that this application will cause problems with loading.
+
+
+## Future Improvements
+- Implement pop up notifications for the customer whenever price of the product is decreased or increased.
+- Provide online orders, payments and store pick-up.
+- Offer item brand or size-specific comparisons
 
 
 
