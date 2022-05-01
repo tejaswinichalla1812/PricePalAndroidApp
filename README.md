@@ -55,7 +55,13 @@ Every consumer has to create an account first before using the application featu
 
 
 ## Test Credentials
-User Name : pricepal.s22@gmail.com
+
+#### User Login
+User Name : pricepal.s22@gmail.com<br>
+Password : Pricepal@123
+
+#### Admin login
+User Name : pricepalapp2gmail.com
 Password : Pricepal@123
 
 
