@@ -35,6 +35,11 @@ versionName "1.001"
 - gms google services
 - google firebase
 
+## Technical Stack
+- Android : xml, java 
+- Server : Firebase cloud messaging      
+- Backend : Firebase cloud messaging backend provided by google
+
 
 
 
