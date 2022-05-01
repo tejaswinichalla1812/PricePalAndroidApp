@@ -8,8 +8,7 @@
 [Sai Nikhil Vaidyapu](https://github.com/vaidyapusainikhil)
 
 ## Problem Statement
-This Android app is used to create a product list and compare prices of the same products among different stores. It also has a barcode scanner which can be used to identify and get the latest price of the product. The application also allows the user to search for a product by its name. All we have to do is to register and create an account. Following that, there are four sections displayed accordingly: Stores (used to find the stores in our area), Products (used to search for a product), Scan Barcode (used to scan the barcode of a particular product) and Compare Products (used to compare the prices of a product among different stores). Our application also features a Price Analyzer that allows you to compare the price of a certain product between two dates.
-
+People nowadays only spend their money on necessities. As a result, they can only buy anything that is reasonably priced. However, they will need to devote a significant amount of time to visiting all of the stores in order to get product information and conduct a comparison in order to determine which item in which store is more valuable to them. Even if they acquire all of the item details, they will still need to spend a significant amount of time analyzing the items in the stores. Spending their time attempting to figure out all of the product details in multiple stores is a major issue.
 
 ## Test Credentials
 User Name : pricepal.s22@gmail.com
